@@ -1,0 +1,7 @@
+def detect_thumbs_up(hand_landmarks):
+    thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+    index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+
+    if thumb_tip.y < index_tip.y:  # Thumb is up
+        return True
+    return False
