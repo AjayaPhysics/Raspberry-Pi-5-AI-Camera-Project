@@ -1,0 +1,31 @@
+import cv2
+import numpy as np
+import tensorflow.lite as tflite
+from picamera2 import Picamera2
+
+# Load AI Model
+interpreter = tflite.Interpreter(model_path="model/mobilenet_v2.tflite")
+interpreter.allocate_tensors()
+
+# Get input and output tensors
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+# Capture Image
+picam2 = Picamera2()
+picam2.start()
+frame = picam2.capture_array()
+picam2.close()
+
+# Preprocess Image
+img = cv2.resize(frame, (224, 224))
+img = np.expand_dims(img, axis=0)
+img = img.astype(np.float32) / 255.0
+
+# Run Inference
+interpreter.set_tensor(input_details[0]['index'], img)
+interpreter.invoke()
+output_data = interpreter.get_tensor(output_details[0]['index'])
+
+# Display Result
+print("Detected Object: ", np.argmax(output_data))
