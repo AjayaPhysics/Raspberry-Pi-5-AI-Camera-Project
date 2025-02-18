@@ -1,0 +1,2 @@
+if detect_thumbs_up(hand_landmarks):
+    print("Thumbs Up Gesture Detected!")
