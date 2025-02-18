@@ -1,0 +1,2 @@
+wget -O model.caffemodel https://github.com/chuanqi305/MobileNet-SSD/raw/master/mobilenet_iter_73000.caffemodel
+wget -O deploy.prototxt https://github.com/chuanqi305/MobileNet-SSD/raw/master/deploy.prototxt
